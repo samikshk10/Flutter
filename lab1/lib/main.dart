@@ -40,6 +40,7 @@ void main() {
                           Icons.library_books,
                           color: Colors.white,
                         ),
+                        SizedBox(height: 8.0),
                         Text(
                           'Book: 450',
                           style: TextStyle(color: Colors.white, fontSize: 12.0),
@@ -58,6 +59,7 @@ void main() {
                           Icons.account_circle,
                           color: Colors.white,
                         ),
+                        SizedBox(height: 8.0),
                         Text(
                           'View Profile',
                           style: TextStyle(color: Colors.white, fontSize: 12.0),
