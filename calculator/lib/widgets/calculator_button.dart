@@ -19,10 +19,10 @@ class CalculatorButton extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        print("button is pressed");
         callback(label);
       },
-      child: Text(label, style: TextStyle(fontSize: 18)),
+      child: Text(label,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
     );
   }
 }

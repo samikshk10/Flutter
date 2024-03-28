@@ -1,5 +1,6 @@
 import 'package:calculator/widgets/calculator_button.dart';
 import 'package:flutter/material.dart';
+import 'package:eval_ex/expression.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,7 +10,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String text = "0";
+  String output = "0";
+  String math_exp = "";
   List buttons = [
     '9',
     '8',
@@ -22,16 +24,32 @@ class _HomeState extends State<Home> {
     '3',
     '2',
     '1',
-    'x',
+    '*',
+    'C',
     '0',
-    '.',
     '=',
     '+'
   ];
   void buttonPressed(data) {
     setState(() {
-      text = data;
+      if (output == '0')
+        output = data;
+      else if (data == "=") {
+        print(math_exp);
+        Expression exp = Expression(math_exp);
+        output = exp.eval().toString();
+      } else if (data == "+" || data == "-" || data == "*" || data == "/") {
+        output = "";
+        math_exp += output;
+
+        print("operation button is pressed");
+      } else if (data == "C") {
+        output = "0";
+      } else
+        output += data;
+      math_exp += data;
     });
+    print(math_exp);
   }
 
   @override
@@ -46,25 +64,27 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 200,
+              height: 300,
               alignment: Alignment.bottomRight,
               child: Text(
-                text,
+                output,
                 style: TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
-              child: GridView.builder(
-                  itemCount: buttons.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      child: CalculatorButton(
-                          label: buttons[index], callback: buttonPressed),
-                    );
-                  }),
+              child: Container(
+                child: GridView.builder(
+                    itemCount: buttons.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.all(5),
+                        child: CalculatorButton(
+                            label: buttons[index], callback: buttonPressed),
+                      );
+                    }),
+              ),
             )
           ],
         ),
