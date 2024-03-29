@@ -29,19 +29,30 @@ class Home extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.data == null) {
           return Center(child: Text('No data available'));
+        } else if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
         } else {
           print(snapshot.data);
           var data = snapshot.data;
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              return Container(
+              return Card(
+                color: Colors.blue,
+                margin: EdgeInsets.symmetric(vertical: 6, horizontal: 2),
                 child: ListTile(
-                  leading: Icon(Icons.dining_rounded),
+                  leading: Icon(
+                    Icons.dining_rounded,
+                    color: Colors.white,
+                  ),
                   title: Text(
                     data[index]['name'],
+                    style: TextStyle(color: Colors.white),
                   ),
-                  trailing: Text(data[index]['family']),
+                  trailing: Text(
+                    data[index]['family'],
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               );
             },
